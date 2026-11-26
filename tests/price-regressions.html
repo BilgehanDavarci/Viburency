@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>TRY Converter price regression checks</title>
+<style>
+  body { font: 15px system-ui; margin: 32px; background: #101827; color: #e2e8f0; }
+  .pass { color: #86efac; } .fail { color: #fca5a5; }
+  iframe { width: 100%; height: 90px; border: 1px solid #475569; }
+</style>
+<h1>TRY Converter price regression checks</h1>
+<p>Uses the real content script with fixed live and historical rates; no network requests.</p>
+<p id="summary">Running…</p>
+<ol id="results"></ol>
+<div id="preview"></div>
+<script src="price-regressions.js"></script>
+</html>

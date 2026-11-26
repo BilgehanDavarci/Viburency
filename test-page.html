@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>TRY Converter Test Suite (Akakçe, Hepsiburada, Trendyol, Epey)</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #0f172a;
+      color: #f1f5f9;
+      padding: 40px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    h1 { color: #38bdf8; margin-bottom: 8px; }
+    .subtitle { color: #94a3b8; margin-bottom: 30px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .card-title { font-size: 13px; font-weight: 500; color: #cbd5e1; height: 38px; overflow: hidden; }
+    .installment-badge { background: #581c87; color: #f3e8ff; padding: 2px 6px; border-radius: 4px; font-size: 11px; width: fit-content; }
+    .coupon-badge { background: #7c2d12; color: #ffedd5; padding: 2px 6px; border-radius: 4px; font-size: 11px; width: fit-content; }
+    .price-row { display: flex; align-items: baseline; justify-content: space-between; margin-top: auto; padding-top: 8px; border-top: 1px solid #334155; }
+    .main-price { font-size: 18px; font-weight: 700; color: #ffffff; }
+    .old-price { font-size: 11px; color: #94a3b8; text-decoration: line-through; }
+    .discount-tag { background: #166534; color: #86efac; font-size: 10px; padding: 1px 4px; border-radius: 3px; margin-left: 4px; font-weight: 600; }
+    table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+    th, td { border: 1px solid #334155; padding: 10px 14px; text-align: left; }
+    th { background: #334155; font-weight: 600; }
+    .section-card { background: #1e293b; border-radius: 12px; padding: 20px; border: 1px solid #334155; margin-bottom: 24px; }
+    
+    /* Akakçe simulation styles */
+    .pt_v8 { font-size: 20px; font-weight: 700; color: #fff; }
+    .pt_v8 i { font-size: 13px; font-weight: 400; color: #94a3b8; }
+    .seller-row { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px solid #334155; }
+  </style>
+</head>
+<body>
+  <h1>TRY Converter Test Suite</h1>
+  <p class="subtitle">Validates Akakçe, Hepsiburada, Trendyol, and historical chart price conversions.</p>
+
+  <!-- 1. Akakçe PS5 Simulation -->
+  <div class="section-card">
+    <h2 style="color: #38bdf8;">1. Akakçe Satıcı Listesi Simülasyonu (Kuruş Ayrımı ve Logo Koruması)</h2>
+    <div class="seller-row">
+      <div>
+        <div style="font-weight: 600;">En Ucuz Fiyat (38.999,00 TL):</div>
+        <!-- Akakçe format 1: ,00 TL in italic -->
+        <span class="pt_v8">38.999<i>,00 TL</i></span>
+      </div>
+      <div>Ücretsiz kargo</div>
+    </div>
+    
+    <div class="seller-row">
+      <div>
+        <div style="font-weight: 600;">Satıcı 2 (39.359,04 TL):</div>
+        <!-- Akakçe format 2: ,04 TL in italic -->
+        <span class="pt_v8">39.359<i>,04 TL</i></span>
+      </div>
+      <div>Stokta 5 adet</div>
+    </div>
+
+    <div class="seller-row">
+      <div>
+        <div style="font-weight: 600;">Satıcı 3 (39.478,03 TL):</div>
+        <!-- Akakçe format 3: ,03 TL in italic -->
+        <span class="pt_v8">39.478<i>,03 TL</i></span>
+      </div>
+      <div>Stokta 10 adet</div>
+    </div>
+
+    <div class="seller-row">
+      <div>
+        <div style="font-weight: 600;">Mağaza Logolu Fiyat (41.783 TL):</div>
+        <!-- Akakçe format 4: logo + price -->
+        <span class="pt_v8" style="display: flex; align-items: center; gap: 8px;">
+          <b style="background: #2563eb; color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 11px;">Teknosa</b>
+          41.783 <i>TL</i>
+        </span>
+      </div>
+      <div>Resmi Distribütör</div>
+    </div>
+
+    <div style="margin-top: 15px; padding: 10px; background: #0f172a; border-radius: 6px; font-size: 13px;">
+      <b>Fark Kutusu:</b> 1.000 TL fark ile yüksek puanlı satıcı 9,9 seçeneğini gör
+    </div>
+  </div>
+
+  <!-- 2. Hepsiburada & Trendyol -->
+  <div class="section-card">
+    <h2 style="color: #4ade80;">2. Hepsiburada / Trendyol (Parçalı Span & İndirimler)</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="card-title">Samsung Galaxy Tab A11</div>
+        <div class="installment-badge">Peşin fiyatına 3 x 1.699 TL</div>
+        <div class="price-row">
+          <div class="main-price"><span>5.097</span><span> TL</span></div>
+          <span>🛒</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Fellas Whey Protein</div>
+        <div class="coupon-badge">Ek 100 TL Kupon</div>
+        <div>
+          <span class="old-price">1.999,92 TL</span>
+          <span class="discount-tag">%40</span>
+        </div>
+        <div class="price-row">
+          <div class="main-price" style="color: #4ade80;">1.199<span style="font-size: 11px;">,95</span> TL</div>
+          <span>🛒</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Historical Price Table -->
+  <div class="section-card">
+    <h2 style="color: #facc15;">3. Tarihli Fiyat Geçmişi Tablosu (Geçmiş Kur ile Dönüşüm)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Tarih</th>
+          <th>Satıcı</th>
+          <th>Fiyat (TL)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>15.03.2024</td>
+          <td>Amazon TR</td>
+          <td>24.500 TL</td>
+        </tr>
+        <tr>
+          <td>10.05.2023</td>
+          <td>Hepsiburada</td>
+          <td>18.250 TL</td>
+        </tr>
+        <tr>
+          <td>02.01.2022</td>
+          <td>Teknosa</td>
+          <td>12.499 TL</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 4. Akakçe Dynamic Canvas Price Chart Simulation -->
+  <div class="section-card">
+    <h2 style="color: #ec4899;">4. Akakçe Canlı Fiyat Grafiği Simülasyonu (HTML Tooltip & Sürekli Nokta Geçişi)</h2>
+    <p style="font-size: 13px; color: #94a3b8; margin-bottom: 12px;">
+      Fareyi aşağıdaki grafik üzerinde sağa-sola hareket ettirin (scrubbing). Her noktada tooltip'in kilitlenmeden, o güne ait geçmiş kurla USD karşılığını güncellediğini test edin.
+    </p>
+    <div class="canvas_v8_w" style="position: relative; width: 100%; height: 180px; background: #090d16; border-radius: 8px; border: 1px solid #334155; overflow: hidden;">
+      <canvas id="PG_C" width="800" height="180" style="width: 100%; height: 100%; cursor: crosshair;"></canvas>
+      <div id="tooltip" style="position: absolute; display: none; pointer-events: none; background: rgba(15, 23, 42, 0.95); border: 1px solid #38bdf8; padding: 6px 10px; border-radius: 6px; font-size: 12px; z-index: 10; box-shadow: 0 4px 12px rgba(0,0,0,0.5);"></div>
+      <div id="circle" style="position: absolute; display: none; width: 8px; height: 8px; border-radius: 50%; background: #38bdf8; border: 2px solid #fff; pointer-events: none; transform: translate(-50%, -50%);"></div>
+    </div>
+    <div style="margin-top: 10px; display: flex; gap: 8px;">
+      <button id="btn-scrub-akakce" style="background: #2563eb; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px;">Otomatik Scrubbing Simülasyonu Başlat</button>
+      <span id="akakce-status" style="font-size: 12px; color: #94a3b8; align-self: center;"></span>
+    </div>
+  </div>
+
+  <!-- 5. Highcharts Dynamic SVG Price Chart Simulation (Epey, Cimri) -->
+  <div class="section-card">
+    <h2 style="color: #a855f7;">5. Epey / Highcharts SVG Fiyat Grafiği Simülasyonu (&lt;tspan&gt; Koruma Testi)</h2>
+    <p style="font-size: 13px; color: #94a3b8; margin-bottom: 12px;">
+      Highcharts SVG tabanlı grafiklerdeki &lt;tspan&gt; yapısını bozmadan her fare hareketinde tarihsel dönüşümü doğrular.
+    </p>
+    <div class="highcharts-container" style="position: relative; width: 100%; height: 180px; background: #090d16; border-radius: 8px; border: 1px solid #334155; overflow: hidden;">
+      <svg class="highcharts-root" width="100%" height="180" viewBox="0 0 800 180" style="cursor: crosshair;">
+        <!-- Background grid lines -->
+        <line x1="50" y1="30" x2="750" y2="30" stroke="#1e293b" stroke-dasharray="4,4"/>
+        <line x1="50" y1="80" x2="750" y2="80" stroke="#1e293b" stroke-dasharray="4,4"/>
+        <line x1="50" y1="130" x2="750" y2="130" stroke="#1e293b" stroke-dasharray="4,4"/>
+        <!-- Sample plot line -->
+        <polyline fill="none" stroke="#a855f7" stroke-width="2.5" points="100,120 220,100 360,75 520,60 680,45" />
+        <!-- Data dots -->
+        <circle cx="100" cy="120" r="5" fill="#a855f7" />
+        <circle cx="220" cy="100" r="5" fill="#a855f7" />
+        <circle cx="360" cy="75" r="5" fill="#a855f7" />
+        <circle cx="520" cy="60" r="5" fill="#a855f7" />
+        <circle cx="680" cy="45" r="5" fill="#a855f7" />
+        <!-- Highcharts Tooltip SVG Group -->
+        <g class="highcharts-tooltip" style="cursor: default; pointer-events: none; transition: transform 0.05s ease;" transform="translate(100, 30)">
+          <path fill="rgba(15, 23, 42, 0.95)" stroke="#a855f7" stroke-width="1" d="M 0 0 L 150 0 C 153 0 155 2 155 5 L 155 45 C 155 48 153 50 150 50 L 0 50 C -3 50 -5 48 -5 45 L -5 5 C -5 2 -3 0 0 0 Z"></path>
+          <text x="10" y="20" style="fill: #f1f5f9; font-size: 12px; font-family: sans-serif;">
+            <tspan style="font-weight: bold; fill: #c084fc;">15 Mart 2024</tspan>
+            <tspan x="10" dy="18" style="fill: #94a3b8;">En Ucuz: </tspan>
+            <tspan style="font-weight: bold; fill: #ffffff;" id="hc-price-tspan">24.500 TL</tspan>
+          </text>
+        </g>
+      </svg>
+    </div>
+    <div style="margin-top: 10px; display: flex; gap: 8px;">
+      <button id="btn-scrub-highcharts" style="background: #9333ea; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px;">Highcharts Nokta Değiştir (Simülasyon)</button>
+      <span id="hc-status" style="font-size: 12px; color: #94a3b8; align-self: center;"></span>
+    </div>
+  </div>
+
+  <!-- 6. Hepsiburada & E-Ticaret İndirimli Çift Fiyat / Rozet Koruma Testi -->
+  <div class="section-card" id="hepsiburada-test-section">
+    <h2 style="color: #22c55e;">6. Hepsiburada İndirimli Çift Fiyat & Rozet Koruma Testi</h2>
+    <p style="font-size: 13px; color: #94a3b8; margin-bottom: 12px;">
+      İndirimli ürünlerde hem eski fiyatın hem sepet indirimli fiyatın dönüştürüldüğünü, yüzde rozetinin (%49) korunduğunu ve kutunun taşmadığını test eder.
+    </p>
+
+    <!-- Hepsiburada Sepete Özel Kart Simülasyonu -->
+    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+      <div style="background: #181d28; border: 1px solid #334155; border-radius: 8px; padding: 16px; width: 280px; box-sizing: border-box;">
+        <h4 style="margin: 0 0 10px 0; font-size: 14px; color: #f8fafc;">Fellas Whey Protein (Sepete Özel)</h4>
+        
+        <!-- Hepsiburada exact DOM -->
+        <div class="price-module_priceAreaRoot__MG440 price-module_isBasketCampaign__q1jch" id="hb-basket-card" style="display: flex; flex-direction: column; gap: 4px; border: 1px solid #166534; padding: 10px; border-radius: 6px; background: rgba(22, 101, 52, 0.1);">
+          <div class="price-module_priceLabel__GjxGJ" style="color: #22c55e; font-size: 12px; font-weight: 600;">Sepete özel</div>
+          <div class="price-module_priceInfo__UTCQv" style="display: flex; flex-direction: column;">
+            <div class="price-module_originalPriceArea__s-o4Z" style="display: flex; align-items: center; gap: 6px;">
+              <span class="price-module_originalPrice__43Wnd" style="text-decoration: line-through; color: #94a3b8; font-size: 12px;">2.199,91 TL</span>
+              <span class="price-module_discountRate__Uh-XD" style="background: #22c55e; color: #052e16; font-size: 11px; font-weight: bold; padding: 1px 4px; border-radius: 4px;">%49</span>
+            </div>
+            <div class="price-module_finalPrice__LtjvY price-module_hasDiscount__hLqfW" style="color: #22c55e; font-size: 18px; font-weight: bold; margin-top: 2px;">
+              1.121<span class="price-module_finalPriceFraction__oALDy">,95 TL</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hepsiburada Taksit (affordability) with screen reader test -->
+        <div class="campaign-module_campaignRoot__60eei" id="hb-installment" style="margin-top: 10px;">
+          <span class="campaign-module_srOnly__DUgMP" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0;">Kampanya: Peşin fiyatına 3 x 374 TL</span>
+          <div class="campaign-module_affordabilityContainer__yjrtM" aria-hidden="true" style="display: inline-flex; align-items: center; gap: 4px; background: #581c87; padding: 3px 8px; border-radius: 4px; font-size: 11px;">
+            <span class="campaign-module_affordabilityItem__UsClA" style="color: #e9d5ff;">Peşin fiyatına</span>
+            <span class="campaign-module_affordabilityItem__UsClA" style="color: #e9d5ff;">3 x</span>
+            <span class="campaign-module_affordabilityItem__UsClA" style="color: #ffffff; font-weight: bold;">374 TL</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hepsiburada Normal İndirim Simülasyonu -->
+      <div style="background: #181d28; border: 1px solid #334155; border-radius: 8px; padding: 16px; width: 280px; box-sizing: border-box;">
+        <h4 style="margin: 0 0 10px 0; font-size: 14px; color: #f8fafc;">Nutraday Protein Tozu (%5 İndirim)</h4>
+        
+        <div class="price-module_priceAreaRoot__MG440" id="hb-normal-discount" style="display: flex; flex-direction: column; gap: 4px; padding: 10px; border-radius: 6px; background: #0f172a; border: 1px solid #334155;">
+          <div class="price-module_priceInfo__UTCQv" style="display: flex; flex-direction: column;">
+            <div class="price-module_originalPriceArea__s-o4Z" style="display: flex; align-items: center; gap: 6px;">
+              <span class="price-module_originalPrice__43Wnd" style="text-decoration: line-through; color: #94a3b8; font-size: 12px;">1.399 TL</span>
+              <span class="price-module_discountRate__Uh-XD" style="background: #f59e0b; color: #451a03; font-size: 11px; font-weight: bold; padding: 1px 4px; border-radius: 4px;">%5</span>
+            </div>
+            <div class="price-module_finalPrice__LtjvY" style="color: #f8fafc; font-size: 18px; font-weight: bold; margin-top: 2px;">
+              1.329<span class="price-module_finalPriceFraction__oALDy"> TL</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tek Satırda İki Fiyat Simülasyonu -->
+      <div style="background: #181d28; border: 1px solid #334155; border-radius: 8px; padding: 16px; width: 280px; box-sizing: border-box;">
+        <h4 style="margin: 0 0 10px 0; font-size: 14px; color: #f8fafc;">Aynı Metin İçinde İki Fiyat</h4>
+        <p id="multi-inline-price" style="font-size: 14px; color: #cbd5e1; margin: 10px 0;">
+          Eski: 500 TL yerine İndirimli: 350 TL
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Sahibinden.com Bug Hunt Simülasyonu -->
+  <div class="section-card" id="sahibinden-test-section">
+    <h2 style="color: #f59e0b;">7. Sahibinden.com Bug Hunt Testi (Otomobil, Emlak, Tarih & Fiyat)</h2>
+    <p style="font-size: 13px; color: #94a3b8; margin-bottom: 12px;">
+      Sahibinden ilan tablosu ve araç/emlak detaylarında tespit edilebilecek potansiyel insan hatalarını test eder.
+    </p>
+
+    <table style="width: 100%; border-collapse: collapse; font-size: 13px; background: #0f172a; border-radius: 8px; overflow: hidden;" id="sahibinden-table">
+      <thead>
+        <tr style="background: #1e293b; color: #94a3b8; text-align: left;">
+          <th style="padding: 10px;">İlan Başlığı</th>
+          <th style="padding: 10px;">Fiyat</th>
+          <th style="padding: 10px;">İlan Tarihi</th>
+          <th style="padding: 10px;">Açıklama / Durum</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Row 1: Renault 12 TL Model Adı Testi -->
+        <tr class="searchResultsItem" id="row-renault">
+          <td style="padding: 10px; border-bottom: 1px solid #1e293b;" class="searchResultsTitleValue">
+            <a href="#" style="color: #38bdf8; text-decoration: none;" id="title-renault">1982 Model Renault 12 TL Orijinal Toros</a>
+          </td>
+          <td style="padding: 10px; border-bottom: 1px solid #1e293b; font-weight: bold; color: #22c55e;" class="searchResultsPriceValue">
+            <span id="price-renault">250.000 TL</span>
+          </td>
+          <td style="padding: 10px; border-bottom: 1px solid #1e293b; color: #94a3b8;" class="searchResultsDateValue">
+            <span id="date-renault">15 Mart 2021</span>
+          </td>
+          <td style="padding: 10px; border-bottom: 1px solid #1e293b; color: #cbd5e1;">
+            Model adındaki "12 TL" fiyata mı dönüştü? 2021 tarihi 250.000 TL'nin kurunu mu bozdu?
+          </td>
+        </tr>
+
+        <!-- Row 2: Acura 3.2 TL Model Adı Testi -->
+        <tr class="searchResultsItem" id="row-acura">
+          <td style="padding: 10px; border-bottom: 1px solid #1e293b;" class="searchResultsTitleValue">
+            <a href="#" style="color: #38bdf8; text-decoration: none;" id="title-acura">Acura 3.2 TL Type-S Otomatik</a>
+          </td>
+          <td style="padding: 10px; border-bottom: 1px solid #1e293b; font-weight: bold; color: #22c55e;" class="searchResultsPriceValue">
+            <span id="price-acura">650.000 TL</span>
+          </td>
+          <td style="padding: 10px; border-bottom: 1px solid #1e293b; color: #94a3b8;" class="searchResultsDateValue">
+            <span id="date-acura">06 Ekim 2026</span>
+          </td>
+          <td style="padding: 10px; border-bottom: 1px solid #1e293b; color: #cbd5e1;">
+            Motor hacmi "3.2 TL" 6 sente mi dönüştü?
+          </td>
+        </tr>
+
+        <!-- Row 3: Boşluklu Binlik Ayracı (1 500 000 TL) -->
+        <tr class="searchResultsItem" id="row-space-separated">
+          <td style="padding: 10px; border-bottom: 1px solid #1e293b;" class="searchResultsTitleValue">
+            <a href="#" style="color: #38bdf8; text-decoration: none;">Kadıköy Moda Satılık 3+1 Daire</a>
+          </td>
+          <td style="padding: 10px; border-bottom: 1px solid #1e293b; font-weight: bold; color: #22c55e;" class="searchResultsPriceValue">
+            <span id="price-space-separated">8 500 000 TL</span>
+          </td>
+          <td style="padding: 10px; border-bottom: 1px solid #1e293b; color: #94a3b8;" class="searchResultsDateValue">
+            <span>Dün</span>
+          </td>
+          <td style="padding: 10px; border-bottom: 1px solid #1e293b; color: #cbd5e1;">
+            Boşluklu binlik ayracı (8 500 000 TL) doğru algılandı mı?
+          </td>
+        </tr>
+
+        <!-- Row 4: Birim Fiyat (TL/m²) -->
+        <tr class="searchResultsItem" id="row-unit-price">
+          <td style="padding: 10px; border-bottom: 1px solid #1e293b;" class="searchResultsTitleValue">
+            <a href="#" style="color: #38bdf8; text-decoration: none;">Arsa m² Birim Fiyatı</a>
+          </td>
+          <td style="padding: 10px; border-bottom: 1px solid #1e293b; font-weight: bold; color: #22c55e;" class="searchResultsPriceValue">
+            <span id="price-unit">45.000 TL/m²</span>
+          </td>
+          <td style="padding: 10px; border-bottom: 1px solid #1e293b; color: #94a3b8;" class="searchResultsDateValue">
+            <span>Bugün</span>
+          </td>
+          <td style="padding: 10px; border-bottom: 1px solid #1e293b; color: #cbd5e1;">
+            /m² birimi korundu mu?
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 8: PttAVM Günün Fırsatları & Sepete Özel Compact Discount Cards -->
+  <div class="test-section" id="section-pttavm" style="background: #1e293b; border-radius: 12px; padding: 24px; margin-bottom: 24px; border: 1px solid #334155;">
+    <h2 style="margin-top: 0; color: #f59e0b; font-size: 1.25rem;">8. PttAVM Günün Fırsatları &amp; "Sepete Özel" İndirim Kartları Testi</h2>
+    <p style="color: #94a3b8; font-size: 0.9rem;">
+      PttAVM kompakt indirim kartlarında kuruş hanesinin ayrı bir <code>&lt;span class="compactSpecialPriceDecimal__W0OH7"&gt;,59&lt;/span&gt;</code> içinde olması nedeniyle özel fiyatın hiç dönüştürülmemesi ve uzun metinlerde kutudan taşarak ellipsis ile kesilmesi hatasının testi.
+    </p>
+
+    <div style="display: flex; gap: 16px; flex-wrap: wrap; background: #991b1b; padding: 20px; border-radius: 8px;" id="pttavm-carousel">
+      <!-- Card 1: Demirdöküm Ademix (Bölünmüş Kuruşlu ve İndirimli) -->
+      <article class="compactArticle__FH9PN" style="background: #0f172a; padding: 12px; border-radius: 8px; width: 180px;" id="card-ptt-ademix">
+        <h4 style="font-size: 11px; margin: 0 0 8px 0; color: #f8fafc; height: 32px; overflow: hidden;">Demirdöküm Ademix P 28/28 kW Tam Yoğuşmalı Kombi</h4>
+        <div class="compactAddCartWrapper__SL_MK">
+          <button type="button" class="compactPriceBox__JNTCy" style="display: flex; align-items: center; height: 36px; width: 100%; background: #1e293b; border: 1px solid #334155; border-radius: 4px; padding: 0; cursor: pointer;">
+            <div class="compactChip__uS403" style="background: #065f46; color: #34d399; font-size: 7px; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 0 4px;">
+              <span>Sepete</span><span>Özel</span>
+            </div>
+            <div class="compactPriceGroup__XZP7R" style="display: flex; flex-direction: column; justify-content: center; padding: 1px 3px 0 6px;">
+              <div class="compactOriginalPrice__HHr0C" id="ptt-ademix-orig" style="color: #94a3b8; text-decoration: line-through;">39.965<span>,44</span><span> TL</span></div>
+              <div class="compactSpecialPrice__wWyRI" id="ptt-ademix-spec" style="color: #22c55e; font-weight: bold;">35.169<span class="compactSpecialPriceDecimal__W0OH7">,59</span><span class="compactSpecialPriceCurrency__WMMq8"> TL</span></div>
+            </div>
+            <span class="compactAddCart__R5Spp" style="margin-left: auto; padding: 0 4px; color: #94a3b8;">🛒</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- Card 2: Fissler Vitaquick (Kuruşsuz İndirimli) -->
+      <article class="compactArticle__FH9PN" style="background: #0f172a; padding: 12px; border-radius: 8px; width: 180px;" id="card-ptt-fissler">
+        <h4 style="font-size: 11px; margin: 0 0 8px 0; color: #f8fafc; height: 32px; overflow: hidden;">Fissler Vitaquick Premium 3,5 Litre Düdüklü Tencere</h4>
+        <div class="compactAddCartWrapper__SL_MK">
+          <button type="button" class="compactPriceBox__JNTCy" style="display: flex; align-items: center; height: 36px; width: 100%; background: #1e293b; border: 1px solid #334155; border-radius: 4px; padding: 0; cursor: pointer;">
+            <div class="compactChip__uS403" style="background: #065f46; color: #34d399; font-size: 7px; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; padding: 0 4px;">
+              <span>Sepete</span><span>Özel</span>
+            </div>
+            <div class="compactPriceGroup__XZP7R" style="display: flex; flex-direction: column; justify-content: center; padding: 1px 3px 0 6px;">
+              <div class="compactOriginalPrice__HHr0C" id="ptt-fissler-orig" style="color: #94a3b8; text-decoration: line-through;">12.000<span> TL</span></div>
+              <div class="compactSpecialPrice__wWyRI" id="ptt-fissler-spec" style="color: #22c55e; font-weight: bold;">10.199<span class="compactSpecialPriceCurrency__WMMq8"> TL</span></div>
+            </div>
+            <span class="compactAddCart__R5Spp" style="margin-left: auto; padding: 0 4px; color: #94a3b8;">🛒</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- Card 3: TMO Fındık (Standart Tek Fiyat) -->
+      <article class="compactArticle__FH9PN" style="background: #0f172a; padding: 12px; border-radius: 8px; width: 180px;" id="card-ptt-tmo">
+        <h4 style="font-size: 11px; margin: 0 0 8px 0; color: #f8fafc; height: 32px; overflow: hidden;">TMO Kavrulmuş İç Fındık 500 gr</h4>
+        <div class="compactAddCartWrapper__SL_MK">
+          <button type="button" class="compactPriceBox__JNTCy" style="display: flex; align-items: center; height: 36px; width: 100%; background: #1e293b; border: 1px solid #334155; border-radius: 4px; padding: 0; cursor: pointer;">
+            <div class="compactPlainPriceGroup__hWZe9" style="padding: 1px 3px 0 6px;">
+              <div class="compactPriceLine__sX4Jf" id="ptt-tmo-price" style="color: #f8fafc; font-weight: bold;">2.366<span>,45</span><span> TL</span></div>
+            </div>
+            <span class="compactAddCart__R5Spp" style="margin-left: auto; padding: 0 4px; color: #94a3b8;">🛒</span>
+          </button>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <!-- SECTION 9: Trendyol & E-Commerce Unit Prices (Birim Fiyatlar: / tablet, / lt, / adet, / kg) -->
+  <div class="test-section" id="section-unit-prices" style="background: #1e293b; border-radius: 12px; padding: 24px; margin-bottom: 24px; border: 1px solid #334155;">
+    <h2 style="margin-top: 0; color: #f59e0b; font-size: 1.25rem;">9. Trendyol &amp; E-Ticaret Birim Fiyatları Testi (/ tablet, / lt, / adet, / kg)</h2>
+    <p style="color: #94a3b8; font-size: 0.9rem;">
+      Trendyol gibi sitelerde parça, tablet, litre veya kilogram başına verilen <code>(5,83 TL / tablet)</code>, <code>(725,18 TL / lt)</code> gibi birim fiyatların algılanıp birimi korunarak dolara dönüştürülmesinin testi.
+    </p>
+
+    <div style="display: flex; gap: 16px; flex-wrap: wrap; background: #0f172a; padding: 20px; border-radius: 8px;" id="unit-prices-container">
+      <!-- Card 1: Trendyol icollagen Jelibon (/ tablet) -->
+      <div style="background: #1e293b; padding: 16px; border-radius: 8px; width: 220px;" id="ty-card-tablet">
+        <h4 style="font-size: 12px; color: #f8fafc; margin: 0 0 8px 0;">iCollagen Jelibon 60 Tablet</h4>
+        <div style="font-size: 16px; font-weight: bold; color: #f97316;" id="ty-main-price-tablet">350 TL</div>
+        <div class="current-price__unit-price" id="ty-unit-tablet" style="font-size: 11px; color: #94a3b8; margin-top: 4px;">(<!-- -->5,83<!-- --> <!-- -->TL<!-- --> / <!-- -->tablet<!-- -->)</div>
+      </div>
+
+      <!-- Card 2: Trendyol Embeauty Şampuan (/ lt) -->
+      <div style="background: #1e293b; padding: 16px; border-radius: 8px; width: 220px;" id="ty-card-lt">
+        <h4 style="font-size: 12px; color: #f8fafc; margin: 0 0 8px 0;">Embeauty Şampuan 400 ml</h4>
+        <div style="font-size: 16px; font-weight: bold; color: #f97316;" id="ty-main-price-lt">290,07 TL</div>
+        <div class="current-price__unit-price" id="ty-unit-lt" style="font-size: 11px; color: #94a3b8; margin-top: 4px;">(<!-- -->725,18<!-- --> <!-- -->TL<!-- --> / <!-- -->lt<!-- -->)</div>
+      </div>
+
+      <!-- Card 3: Standart E-ticaret (/ adet) -->
+      <div style="background: #1e293b; padding: 16px; border-radius: 8px; width: 220px;" id="ty-card-adet">
+        <h4 style="font-size: 12px; color: #f8fafc; margin: 0 0 8px 0;">Çok Amaçlı Temizlik Bezi 10'lu</h4>
+        <div style="font-size: 16px; font-weight: bold; color: #f97316;" id="ty-main-price-adet">125 TL</div>
+        <div class="unit-price" id="ty-unit-adet" style="font-size: 11px; color: #94a3b8; margin-top: 4px;">(12,50 TL / adet)</div>
+      </div>
+
+      <!-- Card 4: Dökme Ürün (/ kg) -->
+      <div style="background: #1e293b; padding: 16px; border-radius: 8px; width: 220px;" id="ty-card-kg">
+        <h4 style="font-size: 12px; color: #f8fafc; margin: 0 0 8px 0;">Organik Kırmızı Mercimek 1 kg</h4>
+        <div style="font-size: 16px; font-weight: bold; color: #f97316;" id="ty-main-price-kg">45 TL</div>
+        <div class="unit-price" id="ty-unit-kg" style="font-size: 11px; color: #94a3b8; margin-top: 4px;">(45,00 TL / kg)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 10: Cimri.com Parçalı Kuruş Fiyatları Simülasyonu (Virgülden Sonraki Kuruş Parçalanması Düzeltmesi) -->
+  <div class="test-section" id="section-cimri-prices" style="background: #1e293b; border-radius: 12px; padding: 24px; margin-bottom: 24px; border: 1px solid #334155;">
+    <h2 style="margin-top: 0; color: #38bdf8; font-size: 1.25rem;">10. Cimri.com Parçalı Kuruş Fiyatları Testi (Virgülden Sonraki Kuruş Parçalanması Düzeltmesi)</h2>
+    <p style="color: #94a3b8; font-size: 0.9rem;">
+      Cimri.com'da tam sayı kısmı ile virgülden sonraki kuruş kısmının ayrı DOM span elemanlarında bulunması (örn. <code>&lt;span class="h1Anp tnwdh"&gt;16.070&lt;span class="QzucZ"&gt;,60 TL&lt;/span&gt;&lt;/span&gt;</code>) nedeniyle yalnızca <code>,60 TL</code> kısmının $1.21 okunması hatasının giderildiğinin ve tüm fiyatın ($324.31) dönüştürüldüğünün doğrulanması.
+    </p>
+
+    <div style="display: flex; gap: 16px; flex-wrap: wrap; background: #0f172a; padding: 20px; border-radius: 8px;" id="cimri-prices-container">
+      <!-- Card 1: Samsung TV (16.070,60 TL) -->
+      <div style="background: #1e293b; padding: 16px; border-radius: 8px; width: 220px;" id="cimri-card-1">
+        <h4 style="font-size: 12px; color: #f8fafc; margin: 0 0 8px 0;">Samsung 55U8200F 55" TV</h4>
+        <div style="font-size: 18px; font-weight: bold; color: #38bdf8;">
+          <span class="h1Anp tnwdh" id="cimri-tv-decimal-1">16.070<span class="QzucZ">,60 TL</span></span>
+        </div>
+        <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">En ucuz fiyat (41 satıcı)</div>
+      </div>
+
+      <!-- Card 2: Philips TV (33.579,08 TL) -->
+      <div style="background: #1e293b; padding: 16px; border-radius: 8px; width: 220px;" id="cimri-card-2">
+        <h4 style="font-size: 12px; color: #f8fafc; margin: 0 0 8px 0;">Philips 50PUS8108 50" TV</h4>
+        <div style="font-size: 18px; font-weight: bold; color: #38bdf8;">
+          <span class="h1Anp tnwdh" id="cimri-tv-decimal-2">33.579<span class="QzucZ">,08 TL</span></span>
+        </div>
+        <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">En ucuz fiyat (18 satıcı)</div>
+      </div>
+
+      <!-- Card 3: LG TV Whole Price (15.916 TL) -->
+      <div style="background: #1e293b; padding: 16px; border-radius: 8px; width: 220px;" id="cimri-card-3">
+        <h4 style="font-size: 12px; color: #f8fafc; margin: 0 0 8px 0;">LG 55NANO766QA TV (Tam Fiyat)</h4>
+        <div style="font-size: 18px; font-weight: bold; color: #38bdf8;">
+          <span class="h1Anp tnwdh" id="cimri-tv-whole-3">15.916<span class="QzucZ">&nbsp;TL</span></span>
+        </div>
+        <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">Kuruşsuz standart tam fiyat</div>
+      </div>
+
+      <!-- Card 4: Cimri Detay Sayfası Mağaza Listesi (34.220,07 TL) -->
+      <div style="background: #1e293b; padding: 16px; border-radius: 8px; width: 220px;" id="cimri-card-4">
+        <h4 style="font-size: 12px; color: #f8fafc; margin: 0 0 8px 0;">Cimri Detay Mağaza Teklifi</h4>
+        <div style="font-size: 18px; font-weight: bold; color: #38bdf8;">
+          <span class="K0cO0" id="cimri-detail-offer-4">34.220<span class="UZyCS">,07 TL</span></span>
+        </div>
+        <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">Hepsiburada mağazası</div>
+      </div>
+
+      <!-- Card 5: Cimri Detay Başlık Fiyatı (50.349,05 TL) -->
+      <div style="background: #1e293b; padding: 16px; border-radius: 8px; width: 220px;" id="cimri-card-5">
+        <h4 style="font-size: 12px; color: #f8fafc; margin: 0 0 8px 0;">Cimri Detay Tepe Fiyatı</h4>
+        <div style="font-size: 18px; font-weight: bold; color: #38bdf8;">
+          <span class="zOmX7" id="cimri-detail-top-5">50.349<span class="TfJut">,05 TL</span></span>
+        </div>
+        <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">Tavsiye edilen fiyat</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 1. Akakçe Canvas Chart Interactive Script
+    (function() {
+      const canvas = document.getElementById('PG_C');
+      const tooltip = document.getElementById('tooltip');
+      const circle = document.getElementById('circle');
+      if (!canvas || !tooltip) return;
+
+      const points = [
+        { x: 100, y: 130, date: '15.01.2024', price: '22.499,00 TL' },
+        { x: 250, y: 110, date: '15.03.2024', price: '24.500,00 TL' },
+        { x: 400, y: 85,  date: '20.06.2024', price: '26.250,50 TL' },
+        { x: 550, y: 65,  date: '10.09.2024', price: '28.999,00 TL' },
+        { x: 700, y: 40,  date: '05.10.2024', price: '31.500,00 TL' }
+      ];
+
+      function renderCanvas() {
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw line
+        ctx.beginPath();
+        ctx.strokeStyle = '#38bdf8';
+        ctx.lineWidth = 2.5;
+        ctx.moveTo(points[0].x, points[0].y);
+        for (let i = 1; i < points.length; i++) {
+          ctx.lineTo(points[i].x, points[i].y);
+        }
+        ctx.stroke();
+
+        // Draw points
+        for (const p of points) {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, 5, 0, Math.PI * 2);
+          ctx.fillStyle = '#38bdf8';
+          ctx.fill();
+        }
+      }
+      renderCanvas();
+
+      canvas.addEventListener('mousemove', function(e) {
+        const rect = canvas.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+
+        // Find closest point
+        let closest = points[0];
+        let minDist = Math.abs(points[0].x - mouseX);
+        for (let i = 1; i < points.length; i++) {
+          const d = Math.abs(points[i].x - mouseX);
+          if (d < minDist) {
+            minDist = d;
+            closest = points[i];
+          }
+        }
+
+        tooltip.style.display = 'block';
+        tooltip.style.left = (closest.x + 12) + 'px';
+        tooltip.style.top = (closest.y - 30) + 'px';
+        // Exact Akakçe innerHTML format
+        tooltip.innerHTML = '<span> <i>' + closest.date + '</i>\n' + closest.price + '</span>';
+
+        circle.style.display = 'block';
+        circle.style.left = closest.x + 'px';
+        circle.style.top = closest.y + 'px';
+      });
+
+      canvas.addEventListener('mouseleave', function() {
+        tooltip.style.display = 'none';
+        circle.style.display = 'none';
+      });
+
+      // Auto scrub test
+      const scrubBtn = document.getElementById('btn-scrub-akakce');
+      const statusSpan = document.getElementById('akakce-status');
+      let scrubIdx = 0;
+      scrubBtn.addEventListener('click', function() {
+        const pt = points[scrubIdx % points.length];
+        scrubIdx++;
+        const rect = canvas.getBoundingClientRect();
+        canvas.dispatchEvent(new MouseEvent('mousemove', {
+          bubbles: true,
+          clientX: rect.left + pt.x,
+          clientY: rect.top + pt.y
+        }));
+        statusSpan.textContent = 'Nokta ' + ((scrubIdx - 1) % points.length + 1) + ' seçildi: ' + pt.date + ' (' + pt.price + ')';
+      });
+    })();
+
+    // 2. Highcharts Dynamic SVG Simulation
+    (function() {
+      const hcGroup = document.querySelector('.highcharts-tooltip');
+      const svg = document.querySelector('.highcharts-root');
+      const btn = document.getElementById('btn-scrub-highcharts');
+      const statusSpan = document.getElementById('hc-status');
+      if (!hcGroup || !svg) return;
+
+      const hcPoints = [
+        { x: 100, y: 30, date: '15 Ocak 2024', price: '22.499 TL' },
+        { x: 220, y: 20, date: '15 Mart 2024', price: '24.500 TL' },
+        { x: 360, y: 15, date: '20 Haziran 2024', price: '26.250 TL' },
+        { x: 520, y: 10, date: '10 Eylül 2024', price: '28.999 TL' },
+        { x: 680, y: 5,  date: '05 Ekim 2024', price: '31.500 TL' }
+      ];
+
+      let hcIdx = 0;
+      function setHcPoint(idx) {
+        const pt = hcPoints[idx % hcPoints.length];
+        hcGroup.setAttribute('transform', 'translate(' + pt.x + ', ' + pt.y + ')');
+        const tspans = hcGroup.querySelectorAll('tspan');
+        if (tspans.length >= 3) {
+          tspans[0].textContent = pt.date;
+          tspans[2].textContent = pt.price;
+        }
+        if (statusSpan) {
+          statusSpan.textContent = 'Highcharts Nokta: ' + pt.date + ' (' + pt.price + ')';
+        }
+      }
+
+      btn.addEventListener('click', function() {
+        hcIdx++;
+        setHcPoint(hcIdx);
+        // Dispatch mousemove to trigger real-time chart converter
+        svg.dispatchEvent(new MouseEvent('mousemove', { bubbles: true }));
+      });
+    })();
+  </script>
+
+  <!-- Auto-test mock for standalone testing without extension loaded -->
+  <script>
+    if (!window.chrome || !window.chrome.runtime || !window.chrome.runtime.sendMessage) {
+      window.chrome = window.chrome || {};
+      window.chrome.storage = window.chrome.storage || {
+        local: {
+          get: async () => ({ enabled: true, displayMode: 'replace', decimals: 2 }),
+          set: async () => {}
+        },
+        onChanged: { addListener: () => {} }
+      };
+      window.chrome.runtime = window.chrome.runtime || {
+        sendMessage: async (msg) => {
+          if (msg.type === 'GET_LATEST_RATE') {
+            return { success: true, data: { rate: 0.02035, date: '2026-10-05' } };
+          }
+          if (msg.type === 'GET_HISTORICAL_RATE') {
+            const map = {
+              '2024-01-15': 0.0332,
+              '2024-03-15': 0.03104,
+              '2024-06-20': 0.0305,
+              '2024-09-10': 0.0294,
+              '2024-10-05': 0.0292,
+              '2023-05-10': 0.0512,
+              '2022-01-02': 0.0745
+            };
+            return { success: true, data: { rate: map[msg.date] || 0.02035, date: msg.date } };
+          }
+          if (msg.type === 'BATCH_GET_RATES') {
+            return { success: true, data: {} };
+          }
+          return { success: false };
+        },
+        onMessage: { addListener: () => {} }
+      };
+    }
+  </script>
+  <script src="content.js"></script>
+</body>
+</html>

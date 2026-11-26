@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Viburency</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo-area">
+        <div class="logo-icon">₺→$</div>
+        <div>
+          <h1 class="title">Viburency</h1>
+          <p class="subtitle">Live & Historical Converter</p>
+        </div>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="toggle-enabled" checked>
+        <span class="slider"></span>
+      </label>
+    </header>
+
+    <!-- Live Rate Banner -->
+    <div class="rate-card">
+      <div class="rate-header">
+        <span class="rate-label">Live Exchange Rate</span>
+        <button id="btn-refresh-rate" class="icon-btn" title="Refresh exchange rate">🔄</button>
+      </div>
+      <div class="rate-value" id="live-rate-display">Loading...</div>
+      <div class="rate-subtext" id="live-rate-date">Fetching latest ECB rates...</div>
+    </div>
+
+    <!-- Settings Group -->
+    <div class="settings-group">
+      <div class="setting-item">
+        <label for="select-target-currency" class="setting-label">Convert to</label>
+        <select id="select-target-currency" class="custom-select">
+          <option value="USD">USD — US Dollar ($)</option>
+          <option value="EUR">EUR — Euro (€)</option>
+        </select>
+      </div>
+      <div class="setting-item">
+        <label for="select-display-mode" class="setting-label">Display Format</label>
+        <select id="select-display-mode" class="custom-select">
+          <option value="replace">Replace with USD ($850)</option>
+          <option value="both_try_first">TRY first: 29.399 TL ($850)</option>
+          <option value="both_usd_first">USD first: $850 (29.399 TL)</option>
+        </select>
+      </div>
+
+      <div class="setting-item">
+        <label for="select-decimals" class="setting-label">Decimal Precision</label>
+        <select id="select-decimals" class="custom-select">
+          <option value="2">2 Decimals ($850.50)</option>
+          <option value="0">Rounded ($851)</option>
+        </select>
+      </div>
+      <details class="pin-settings">
+        <summary class="setting-label">Tooltip pinning</summary>
+        <div class="setting-item">
+          <label for="pin-delay" class="setting-label">Hover delay (seconds)</label>
+          <input id="pin-delay" type="number" min="0.5" max="60" step="any" class="custom-input" value="3">
+        </div>
+        <div class="setting-item">
+          <label for="pin-trigger" class="setting-label">Pin immediately with</label>
+          <select id="pin-trigger" class="custom-select">
+            <option value="default">Ctrl + Q (default)</option>
+            <option value="keyboard">Custom keyboard shortcut</option>
+          </select>
+        </div>
+        <div id="pin-shortcut-row" class="setting-item" hidden>
+          <label for="pin-shortcut" class="setting-label">Shortcut</label>
+          <input id="pin-shortcut" class="custom-input" readonly placeholder="Click here, then press your shortcut">
+          <p id="pin-shortcut-help" class="setting-help" aria-live="polite">Use Ctrl, Alt or Shift with a key. Hover a price to use it.</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- Quick Calculator / Rate Test -->
+    <div class="test-card">
+      <div class="test-title">🧪 Quick Converter Test</div>
+      <div class="test-inputs">
+        <input type="number" id="test-try-input" placeholder="Price in TL (e.g. 25000)" class="custom-input">
+        <input type="date" id="test-date-input" class="custom-input" title="Leave empty for today's rate">
+      </div>
+      <button id="btn-test-convert" class="primary-btn">Convert to USD</button>
+      <div id="test-result" class="test-result hidden"></div>
+    </div>
+
+    <!-- Historical Cache Stats -->
+    <div class="cache-footer">
+      <span id="cache-stats-text">Cached Dates: 0</span>
+      <button id="btn-clear-cache" class="text-btn">Clear Cache</button>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

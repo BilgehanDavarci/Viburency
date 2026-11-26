@@ -1,0 +1,274 @@
+/* content.css - Styling for converted TRY to USD elements */
+
+/* A converted amount already includes its currency, even with a CSS-only icon. */
+.try2usd-currency-icon-hidden {
+  display: none !important;
+}
+
+.try2usd-converted {
+  position: relative;
+  border-bottom: 1px dotted rgba(16, 185, 129, 0.6) !important;
+  cursor: help !important;
+  transition: all 0.15s ease-in-out;
+  color: inherit;
+  font-weight: inherit;
+}
+
+.try2usd-converted:hover {
+  border-bottom-color: #10b981 !important;
+  background-color: rgba(16, 185, 129, 0.08) !important;
+  border-radius: 2px;
+}
+
+/* Boyner basket prices share a narrow flex row with the Sepette label. */
+[class*="priceMainBestOffer"].try2usd-converted {
+  flex-wrap: wrap;
+  white-space: normal !important;
+  overflow: visible !important;
+  -webkit-line-clamp: unset !important;
+}
+
+/* E-commerce Product Cards - keep clean and prevent flexbox disruption or overflow */
+[class*="price-module"] .try2usd-converted,
+[class*="price-module"].try2usd-converted,
+[class*="productCard"] .try2usd-converted,
+[class*="product-card"] .try2usd-converted,
+[class*="prc-box"] .try2usd-converted,
+[class*="prc-dsc"].try2usd-converted,
+[class*="finalPrice"].try2usd-converted,
+.pt_v8.try2usd-converted,
+span[class*="h1Anp"].try2usd-converted,
+span[class*="zOmX7"].try2usd-converted,
+span[class*="K0cO0"].try2usd-converted {
+  border-bottom: none !important;
+  cursor: inherit !important;
+  white-space: normal;
+  max-width: 100%;
+}
+
+/* Unit prices (Trendyol, Amazon, Hepsiburada, etc.) */
+[class*="unit-price"],
+[class*="unitPrice"],
+[class*="unit_price"],
+.current-price__unit-price,
+[class*="prc-box-unit"],
+[class*="prc-unit"],
+[class*="price-unit"] {
+  border-bottom: none !important;
+  cursor: inherit !important;
+  white-space: normal !important;
+}
+
+/* Classifieds and Search Results Tables (Sahibinden, Hepsiemlak, etc.) */
+.searchResultsPriceValue,
+[class*="searchResultsPrice"],
+[class*="classified-price"],
+.searchResultsItemPrice {
+  white-space: normal !important;
+  word-break: normal;
+}
+
+/* PttAVM Compact Price Boxes & Special Discounts */
+[class*="compactPriceBox"] {
+  overflow: visible !important;
+}
+
+[class*="compactPriceGroup"] {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  width: auto !important;
+  padding: 1px 2px 0 3px !important;
+}
+
+[class*="compactSpecialPrice"].try2usd-converted,
+[class*="compactSpecialPrice"] .try2usd-converted,
+[class*="compactOriginalPrice"].try2usd-converted,
+[class*="compactOriginalPrice"] .try2usd-converted,
+[class*="compactPriceLine"].try2usd-converted,
+[class*="compactPriceLine"] .try2usd-converted {
+  border-bottom: none !important;
+  cursor: inherit !important;
+  text-overflow: clip !important;
+  white-space: nowrap !important;
+}
+
+/* Ensure dual/both currency text fits without ellipsis truncation in compact buttons */
+[class*="compactPriceBox"] [class*="compactSpecialPrice"] {
+  font-size: 10px !important;
+  letter-spacing: -0.3px !important;
+  line-height: 1.2 !important;
+}
+
+[class*="compactPriceBox"] [class*="compactOriginalPrice"] {
+  font-size: 8.5px !important;
+  letter-spacing: -0.3px !important;
+  line-height: 1.1 !important;
+}
+
+[class*="compactPriceBox"] [class*="compactAddCart"] {
+  min-width: 26px !important;
+  width: 26px !important;
+}
+
+/* Chart Tooltips - keep clean and non-interfering with chart canvas/svg */
+.try2usd-chart-converted {
+  color: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+}
+
+[class*="tooltip"] .try2usd-converted,
+[id*="tooltip"] .try2usd-converted,
+svg .try2usd-converted {
+  border-bottom: none !important;
+  cursor: inherit !important;
+}
+
+.try2usd-converted-badge {
+  display: inline-block;
+  font-size: 0.82em;
+  padding: 1px 4px;
+  margin-left: 3px;
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+  border-radius: 4px;
+  font-weight: 600;
+  vertical-align: middle;
+}
+
+/* Custom Floating Tooltip */
+#try2usd-floating-tooltip,
+.try2usd-pinned-tooltip {
+  position: fixed;
+  z-index: 2147483647;
+  pointer-events: none;
+  background: #0f172a;
+  color: #f8fafc;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  line-height: 1.4;
+  padding: 8px 12px;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  max-width: 280px;
+  word-break: break-word;
+}
+
+#try2usd-floating-tooltip.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#try2usd-floating-tooltip .tooltip-title,
+.try2usd-pinned-tooltip .tooltip-title {
+  font-weight: 700;
+  color: #34d399;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+#try2usd-floating-tooltip .tooltip-row,
+.try2usd-pinned-tooltip .tooltip-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 2px;
+  color: #cbd5e1;
+}
+
+#try2usd-floating-tooltip .tooltip-date,
+.try2usd-pinned-tooltip .tooltip-date {
+  color: #93c5fd;
+  font-weight: 500;
+}
+
+.try2usd-pinned-tooltip {
+  box-sizing: border-box;
+  width: 320px;
+  pointer-events: auto;
+  opacity: 1;
+  transform: none;
+  transition: none;
+  max-width: min(320px, calc(100vw - 16px));
+  max-height: calc(100vh - 16px);
+  overflow: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.try2usd-conversion-card,
+.try2usd-affiliate-placeholder {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  background: #0f172a;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+}
+
+.try2usd-affiliate-placeholder {
+  margin-top: 8px;
+  min-height: 118px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.try2usd-affiliate-title { font-weight: 700; color: #34d399; }
+.try2usd-affiliate-empty { color: #94a3b8; flex: 1; }
+.try2usd-affiliate-status { font-size: 11px; color: #64748b; }
+
+.try2usd-pinned-tooltip .tooltip-title {
+  justify-content: space-between;
+  gap: 12px;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+
+.try2usd-pinned-tooltip .tooltip-title > span,
+.try2usd-pinned-tooltip .tooltip-row > :last-child {
+  min-width: 0;
+}
+
+.try2usd-pinned-tooltip .tooltip-row > :last-child {
+  text-align: right;
+}
+
+.try2usd-pinned-tooltip.try2usd-dragging .tooltip-title {
+  cursor: grabbing;
+}
+
+.try2usd-pinned-tooltip .try2usd-pin-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  color: #f87171 !important;
+  background: transparent;
+  font: 24px/1 system-ui, sans-serif;
+  cursor: pointer;
+}
+
+.try2usd-pinned-tooltip .try2usd-pin-close:hover,
+.try2usd-pinned-tooltip .try2usd-pin-close:focus-visible {
+  color: #fca5a5 !important;
+  background: rgba(239, 68, 68, 0.18);
+  outline: 1px solid #f87171;
+}
