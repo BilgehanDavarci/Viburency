@@ -14,3 +14,4 @@ desktop.ini
 *.log
 npm-debug.log*
 trendyol_search.html
+/AGENTS.md
